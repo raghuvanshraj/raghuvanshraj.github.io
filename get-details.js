@@ -6,10 +6,13 @@ request.open('GET', 'https://codeforces.com/api/user.info?handles=raghuvanshraj'
 
 request.onload = function() {
     var result = JSON.parse(this.response)
-    // console.log(request.status)
     if (request.status >= 200 && request.status < 400) {
-        // console.log(result.result[0].rank)
-        // console.log(result.result[0].rating)
+        var rank = result.result[0].rank
+        var rankModified = ""
+        for (var word of rank.split(' ')) {
+            rankModified += word.charAt(0).toUpperCase() + word.substring(1) + " "
+        }
+        console.log(rankModified)
         document.getElementById("codeforces-details").innerHTML = "Rank: " + result.result[0].rank.charAt(0).toUpperCase() + result.result[0].rank.substring(1) + "<br>Rating: " + result.result[0].rating
     } else {
         console.log('error')
